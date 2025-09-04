@@ -100,20 +100,4 @@ Os Pods podem ser reiniciados sem perda de dados.
 O cluster mantém consistência mesmo após falhas.
 
 Cada Slave continua replicando do Master.
-
-🔮 Próximos Passos
-
-Trocar hostPath por soluções de storage em produção:
-
-NFS
-
-Ceph
-
-Longhorn
-
-Cloud Volumes (EBS, GCP PD, Azure Disk)
-
-Criar StorageClass para provisionamento dinâmico.
-
-
 ---
