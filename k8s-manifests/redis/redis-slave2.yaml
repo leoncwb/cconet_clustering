@@ -16,16 +16,17 @@ spec:
       containers:
       - name: redis-slave2
         image: redis:7
-        command: ["redis-server"]
-        args: ["--replicaof", "redis-master", "6379"]
         ports:
         - containerPort: 6379
+        command: ["redis-server"]
+        args: ["--replicaof", "redis-master", "6379"]
         volumeMounts:
         - mountPath: /data
           name: redis-slave2-data
       volumes:
       - name: redis-slave2-data
-        emptyDir: {}
+        persistentVolumeClaim:
+          claimName: redis-slave2-pvc
 ---
 apiVersion: v1
 kind: Service

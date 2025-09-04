@@ -23,7 +23,8 @@ spec:
           name: redis-master-data
       volumes:
       - name: redis-master-data
-        emptyDir: {}
+        persistentVolumeClaim:
+          claimName: redis-master-pvc   # 👉 conecta ao PVC criado
 ---
 apiVersion: v1
 kind: Service
