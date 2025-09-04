@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-sentinel3
+  namespace: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-sentinel3
+  template:
+    metadata:
+      labels:
+        app: redis-sentinel3
+    spec:
+      dnsPolicy: ClusterFirst
+      initContainers:
+      - name: check-master
+        image: busybox:1.36
+        command:
+        - sh
+        - -c
+        - |
+          echo "Esperando redis-master:6379 responder..."
+          until nc -z redis-master.redis.svc.cluster.local 6379; do
+            echo "Ainda indisponível, tentando novamente..."
+            sleep 2
+          done
+          echo "redis-master:6379 disponível!"
+      - name: copy-config
+        image: busybox:1.36
+        command:
+        - sh
+        - -c
+        - |
+          echo "Copiando sentinel.conf inicial..."
+          cp /tmp/conf/sentinel.conf /data/sentinel/sentinel.conf
+        volumeMounts:
+        - name: sentinel-config
+          mountPath: /tmp/conf
+        - name: sentinel-storage
+          mountPath: /data/sentinel
+      containers:
+      - name: redis-sentinel3
+        image: redis:7
+        command: ["redis-sentinel", "/data/sentinel/sentinel.conf"]
+        ports:
+        - containerPort: 26379
+        volumeMounts:
+        - name: sentinel-storage
+          mountPath: /data/sentinel
+      volumes:
+      - name: sentinel-config
+        configMap:
+          name: sentinel3-config
+          items:
+          - key: sentinel.conf
+            path: sentinel.conf
+      - name: sentinel-storage
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-sentinel3
+  namespace: redis
+spec:
+  type: ClusterIP
+  ports:
+  - port: 26379
+  selector:
+    app: redis-sentinel3
