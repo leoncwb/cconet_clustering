@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-slave1
+  namespace: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-slave1
+  template:
+    metadata:
+      labels:
+        app: redis-slave1
+    spec:
+      containers:
+      - name: redis-slave1
+        image: redis:7
+        command: ["redis-server"]
+        args: ["--replicaof", "redis-master", "6379"]
+        ports:
+        - containerPort: 6379
+        volumeMounts:
+        - mountPath: /data
+          name: redis-slave1-data
+      volumes:
+      - name: redis-slave1-data
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-slave1
+  namespace: redis
+spec:
+  type: ClusterIP
+  ports:
+  - port: 6379
+  selector:
+    app: redis-slave1
