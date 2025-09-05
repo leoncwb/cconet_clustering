@@ -21,40 +21,13 @@ spec:
         volumeMounts:
         - mountPath: /data
           name: redis-master-data
-
       - name: redis-exporter
         image: oliver006/redis_exporter:v1.56.0
+        ports:
+        - containerPort: 9121
         args:
           - "--redis.addr=redis://localhost:6379"
-        ports:
-          - containerPort: 9121
-        resources:
-          limits:
-            cpu: "100m"
-            memory: "128Mi"
-          requests:
-            cpu: "50m"
-            memory: "64Mi"
-
       volumes:
       - name: redis-master-data
         persistentVolumeClaim:
           claimName: redis-master-pvc
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: redis-master
-  namespace: redis
-spec:
-  type: ClusterIP
-  ports:
-  - port: 6379
-    targetPort: 6379
-    name: redis
-  - port: 9121
-    targetPort: 9121
-    name: metrics
-  selector:
-    app: redis-master
-

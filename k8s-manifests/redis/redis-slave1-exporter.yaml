@@ -1,60 +1,51 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis-master
+  name: redis-slave1
   namespace: redis
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: redis-master
+      app: redis-slave1
   template:
     metadata:
       labels:
-        app: redis-master
+        app: redis-slave1
     spec:
       containers:
-      - name: redis-master
+      - name: redis-slave1
         image: redis:7
         ports:
         - containerPort: 6379
+        args: ["--slaveof", "redis-master", "6379"]
         volumeMounts:
         - mountPath: /data
-          name: redis-master-data
-
+          name: redis-slave1-data
       - name: redis-exporter
         image: oliver006/redis_exporter:v1.56.0
+        ports:
+        - containerPort: 9121
         args:
           - "--redis.addr=redis://localhost:6379"
-        ports:
-          - containerPort: 9121
-        resources:
-          limits:
-            cpu: "100m"
-            memory: "128Mi"
-          requests:
-            cpu: "50m"
-            memory: "64Mi"
-
       volumes:
-      - name: redis-master-data
+      - name: redis-slave1-data
         persistentVolumeClaim:
-          claimName: redis-master-pvc
+          claimName: redis-slave1-pvc
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis-master
+  name: redis-slave1-exporter
   namespace: redis
+  labels:
+    app: redis-slave1-exporter
 spec:
   type: ClusterIP
   ports:
-  - port: 6379
-    targetPort: 6379
-    name: redis
-  - port: 9121
-    targetPort: 9121
-    name: metrics
+    - port: 9121
+      targetPort: 9121
+      protocol: TCP
+      name: metrics
   selector:
-    app: redis-master
-
+    app: redis-slave1
