@@ -4,14 +4,14 @@ metadata:
   name: kafka-exporter
   namespace: kafka
   labels:
-    release: prometheus
+    release: kube-prometheus-stack   # precisa bater com o Prometheus
 spec:
   selector:
     matchLabels:
-      app: kafka-exporter
+      app: kafka-exporter            # precisa bater com o Service
   namespaceSelector:
     matchNames:
       - kafka
   endpoints:
     - port: metrics
-      interval: 15s
+      interval: 30s
