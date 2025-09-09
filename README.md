@@ -36,7 +36,7 @@ Copiar código
 - Inclui os manifests de **Brokers** e **Zookeeper**.
 - Suporte para consumidores/produtores distribuídos.
 
-👉 Guia detalhado: [kafka/README.md](./kafka/README.md) *(em construção)*
+👉 Guia detalhado: [kafka/README.md](./kafka/README.md)
 
 ---
 
