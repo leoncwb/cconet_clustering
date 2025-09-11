@@ -3,6 +3,9 @@ kind: Service
 metadata:
   name: kafka-lb
   namespace: kafka
+  annotations:
+    oci.oraclecloud.com/load-balancer-type: nlb
+    oci.oraclecloud.com/subnet1: ocid1.vcn.oc1.sa-vinhedo-1.amaaaaaap3sdp6qamrlrom647ypyyergw4rbzj32uaegjlyzvdl6judrnkya
 spec:
   type: LoadBalancer
   ports:
@@ -11,4 +14,3 @@ spec:
       targetPort: 9092
   selector:
     app: kafka
-
