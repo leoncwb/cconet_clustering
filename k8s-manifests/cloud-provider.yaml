@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: oci-cloud-controller-manager
+  namespace: kube-system
+type: Opaque
+stringData:
+  cloud-provider.yaml: |
+    auth:
+      tenancy: ocid1.tenancy.oc1..aaaa...
+      user: ocid1.user.oc1..aaaa...
+      fingerprint: "44:dd:8d:af:3a:8f:69:7a:5b:cb:18:35:dc:b9:79:82"
+      region: sa-vinhedo-1
+      key: |
+        -----BEGIN PRIVATE KEY-----
+        MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC6DsnVHZVzy58F
+        /Gg+JUYZlWPmfyq20I9OKBlqyozVuxa4oQxknJcBiZsbjf0zrbHaM9rW5/TMyjoQ
+        OiMwGaoVSHOE4sYgppfFA5eG+DHkaeAECkeFS3ivqFlNfmWigPrv6SJEVbFsQa0I
+        jf4cP3AcUmjHedG27e6V+xS1c1TKWWtCTvg/ur9fO8kOnphgdKmvTh9blHxZanGY
+        HZTO1y+Yq8Kjp0qr3+leXUKD/6pic9ql9yy5cZXkzfjVADE9v6sdD22QaaubYVXw
+        cwBFely7ss6pQnUtX3PtAOs4V68T6UTEA8mGc7VV+L9inZ4jswrh0YtJZEWDy+eR
+        X+/a8v2DAgMBAAECggEADPsdjc1KMUTSZXweWCeiZAQn1VvawqjhnRXv7NZEGS1V
+        mnzYY047IuC5sT4PNynPlmYdYJA/MU9ZDOsuRU7YSDMNcqBq9+0BLb4TnL3epto6
+        k02V5XDfv+TcLJHvzI5FjU0T41yiZYEqupJ3Ji77rWr6fUa8h1zDIDR4vDTw6rHp
+        jnZubVJ47oxjEAFLVYFRhSkyH4IUEbZdbdI8lE4vaBZlvzOiAVUFTVNh5/8IGfEm
+        mz8E3rHSnD9P2DvOmS9Ip3Z5ThukpurUaroD7XSYvKZp8hJSqFwdbborciPcW/jI
+        mAn++cD0Y/CjGe/QTDAB9TSjyOfEpswantrqWdXlUQKBgQDcn+4IDQ1ErJcxNO+6
+        nvf1lBxQ2GvbhnlaN0kfGzoqleo7jNCdIARwdw/r8BQ1sjNhu+Kb/7rDeU8JEsmP
+        UgSUxNtqucIAB9l21TSZ1l5b2Z0vRJpsXJP+eJyrwQyfoyC9ckPMV0I8YbSpDRcg
+        osE8SwD7uux5pYXP4viipRgZNQKBgQDX4/maAzG1ftBO3Vu6MTPtxP/+tlfLOtqQ
+        o1cRm/0Fji1kd1odfashV1ReVsXkvpqxxqwKTYdcTbEvszpkov9m28HAmwfQstiN
+        1icSjHZstq9sFLZ1/7yZp3moxgGqYVVz20p4GntHdJP1InUwIMjh+49QEa8upPeE
+        jtoqnMrK1wKBgQCYGfJCvqzNEafSlspHgN02A3xaCDqjx9vV5JOWzHCXd29aysPv
+        72jgGFVztbpZIpfl42BhaDbcGL/yY29uTX83CVi0BYjH+KFmGar//BhlfmutcMB9
+        wH2PTJvGlXsce5xQv3waXnYdpsakXY/6QfqylIsDAWWSoBjWr4X2q5cnmQKBgQCw
+        RlW8OhVxcw0VB8rouVoEL1EyoaIHr5Nce/IQz8QFsDRCDu3GnKCJRav+p21Hu5XF
+        yEka1HjMlicxom7wUuKlEpQd9ren4Q/Op+gZThU36OZNIpBkwp40+7jrZFlhy72h
+        LpGchUrZakeQ5US4Olyrn+JBZ18Zf9sWIinil0lB2wKBgQC2q9kGvwPeBjFPVvxY
+        r919zCtGh8B0IirWqbqcues2Gf5s2ea9r4cXABwau8Ykd5r68SnSbgMIn8XbYPZj
+        0YyYfv87ZQ85VujaEmD4TGcCgVEUOkDI2w0zneYEIEacnIbiwQfr4bq4X3aBAHwg
+        Cnx7rPrTJPSC6I8hfVhM3zRYOw==
+        -----END PRIVATE KEY-----
+
+    compartment: ocid1.compartment.oc1..aaaaaaaa5onh73vpn6vy537wujer2kn64v534x27lhegokwccaamnqosc3ka
+
+    vcn: ocid1.vcn.oc1.sa-vinhedo-1.amaaaaaap3sdp6qap4j2bsx3g2xfhexweggdieovjxnm7gc4wjk7xe4lrkfa
+
+    loadBalancer:
+      subnet1: ocid1.subnet.oc1.sa-vinhedo-1.aaaaaaaar32c6ir3gqtum6bs2c7pyit3tjunnnyz4adidz3eigu4wusaauaq
