@@ -3,6 +3,9 @@ kind: Service
 metadata:
   name: redis-lb
   namespace: redis
+  annotations:
+    oci.oraclecloud.com/load-balancer-type: nlb
+    oci.oraclecloud.com/subnet1: ocid1.vcn.oc1.sa-vinhedo-1.amaaaaaap3sdp6qamrlrom647ypyyergw4rbzj32uaegjlyzvdl6judrnkya
 spec:
   type: LoadBalancer
   ports:
